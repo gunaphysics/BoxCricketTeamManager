@@ -21,8 +21,11 @@ static class Program
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
         Configuration = builder.Build();
+        var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "BoxCricketTeamManager", "BoxCricketTeamManager.db");
+        Directory.CreateDirectory(Path.GetDirectoryName(dbPath)!);
         ConnectionString = Configuration.GetConnectionString("DefaultConnection") ??
-            "Server=(localdb)\\mssqllocaldb;Database=BoxCricketTeamManager;Trusted_Connection=True;MultipleActiveResultSets=true";
+            $"Data Source={dbPath}";
 
         // Initialize database
         using (var context = CreateDbContext())
@@ -36,7 +39,7 @@ static class Program
     public static AppDbContext CreateDbContext()
     {
         var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-        optionsBuilder.UseSqlServer(ConnectionString);
+        optionsBuilder.UseSqlite(ConnectionString);
         return new AppDbContext(optionsBuilder.Options);
     }
 }
