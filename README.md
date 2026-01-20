@@ -2,6 +2,8 @@
 
 A Windows desktop application for managing box cricket team finances, member tracking, payments, and expense management.
 
+![Dashboard](docs/images/dashboard.png)
+
 ## Features
 
 - **Member Management** - Add, edit, and track team members
@@ -26,11 +28,15 @@ dotnet build
 dotnet run --project BoxCricketTeamManager
 ```
 
+---
+
 ## User Guide
 
 ### 1. Dashboard
 
 The Dashboard provides an overview of your team's finances:
+
+![Dashboard Overview](docs/images/dashboard.png)
 
 - **Active Members** - Number of currently active members
 - **Monthly Collection** - Current month's collected amount vs target
@@ -46,7 +52,12 @@ Click **Refresh** to update the dashboard data.
 
 Manage your team members here.
 
+![Members Tab](docs/images/members.png)
+
 #### Adding a New Member
+
+![Add Member Form](docs/images/add-member.png)
+
 1. Click the **Add Member** button
 2. Fill in the member details:
    - **Name** (required)
@@ -77,14 +88,23 @@ Manage your team members here.
 
 Track monthly payments for all members using the visual payment grid.
 
+![Payments Grid](docs/images/payments.png)
+
 #### Understanding the Grid
+
+| Color | Meaning |
+|-------|---------|
+| Green with ✓ | Payment received |
+| Red | Payment pending |
+| Gray | Inactive member |
+
 - **Rows** = Members
 - **Columns** = Months (JAN through DEC)
-- **Green cell with ✓** = Payment received
-- **Red cell** = Payment pending
-- **Gray cell** = Inactive member
 
 #### Recording a Payment
+
+![Recording Payment](docs/images/payment-toggle.png)
+
 1. Find the member's row
 2. Click on the month cell you want to mark as paid
 3. The cell turns green with a checkmark
@@ -109,7 +129,12 @@ Track monthly payments for all members using the visual payment grid.
 
 Track team expenses organized by category.
 
+![Expenses Tab](docs/images/expenses.png)
+
 #### Adding an Expense
+
+![Add Expense Form](docs/images/add-expense.png)
+
 1. Click **Add Expense** button
 2. Fill in:
    - **Description** (required)
@@ -140,6 +165,8 @@ Track team expenses organized by category.
 
 Generate financial reports for analysis.
 
+![Reports Tab](docs/images/reports.png)
+
 #### Available Reports
 
 **Yearly Summary**
@@ -169,6 +196,8 @@ Generate financial reports for analysis.
 
 Configure application settings.
 
+![Settings Tab](docs/images/settings.png)
+
 #### Monthly Due Amount
 1. Enter the monthly due amount
 2. Select the year it applies to
@@ -197,6 +226,16 @@ The application uses SQLite database stored at:
 %LocalAppData%\BoxCricketTeamManager\BoxCricketTeamManager.db
 ```
 
+## Quick Start
+
+```
+1. Open the app
+2. Go to Members tab → Add your team members
+3. Go to Settings tab → Set monthly due amount (e.g., ₹500)
+4. Go to Payments tab → Click cells to record payments
+5. Go to Dashboard → View summary and pending payments
+```
+
 ## Tips
 
 1. **Add members first** before trying to record payments
@@ -207,15 +246,12 @@ The application uses SQLite database stored at:
 
 ## Troubleshooting
 
-**Payments grid is empty**
-- Make sure you have added members in the Members tab first
-
-**Dashboard shows incorrect balance**
-- Check if opening balance is set correctly in Settings
-- Verify all payments and expenses are recorded
-
-**Cannot edit inactive member payments**
-- Reactivate the member first in the Members tab
+| Problem | Solution |
+|---------|----------|
+| Payments grid is empty | Add members in the Members tab first |
+| Dashboard shows incorrect balance | Check opening balance in Settings |
+| Cannot edit inactive member payments | Reactivate the member in Members tab |
+| App won't start | Ensure .NET 8.0 Runtime is installed |
 
 ## License
 
@@ -224,3 +260,23 @@ MIT License
 ## Support
 
 For issues and feature requests, please create an issue on GitHub.
+
+---
+
+## Adding Screenshots
+
+To add screenshots to this documentation:
+
+1. Run the application
+2. Take screenshots using `Win + Shift + S` or Snipping Tool
+3. Save them to `docs/images/` folder with these names:
+   - `dashboard.png` - Dashboard tab
+   - `members.png` - Members list
+   - `add-member.png` - Add member dialog
+   - `payments.png` - Payments grid
+   - `payment-toggle.png` - Payment cell being clicked
+   - `expenses.png` - Expenses list
+   - `add-expense.png` - Add expense dialog
+   - `reports.png` - Reports tab
+   - `settings.png` - Settings tab
+4. Commit and push the images
