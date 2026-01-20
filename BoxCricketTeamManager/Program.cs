@@ -24,8 +24,10 @@ static class Program
         var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             "BoxCricketTeamManager", "BoxCricketTeamManager.db");
         Directory.CreateDirectory(Path.GetDirectoryName(dbPath)!);
-        ConnectionString = Configuration.GetConnectionString("DefaultConnection") ??
-            $"Data Source={dbPath}";
+        var configConnString = Configuration.GetConnectionString("DefaultConnection");
+        ConnectionString = string.IsNullOrEmpty(configConnString)
+            ? $"Data Source={dbPath}"
+            : configConnString;
 
         // Initialize database
         using (var context = CreateDbContext())
