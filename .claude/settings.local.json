@@ -5,7 +5,9 @@
       "Bash(git commit -m \"$\\(cat <<''EOF''\nInitial commit: BoxCricketTeamManager application\n\nWinForms application for managing box cricket team finances with member tracking, payments, and expense management.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
       "Bash(gh repo create:*)",
       "Bash(dotnet build:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push)"
     ]
   }
 }

@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using BoxCricketTeamManager.Models;
 
 namespace BoxCricketTeamManager.Data
@@ -6,6 +7,17 @@ namespace BoxCricketTeamManager.Data
     {
         public static void Initialize(AppDbContext context)
         {
+            // Delete and recreate database if schema is invalid
+            try
+            {
+                // Try to access a table - if it fails, recreate the database
+                _ = context.ExpenseCategories.Any();
+            }
+            catch
+            {
+                context.Database.EnsureDeleted();
+            }
+
             // Ensure database is created
             context.Database.EnsureCreated();
 
