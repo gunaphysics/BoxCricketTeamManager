@@ -42,11 +42,13 @@ namespace BoxCricketTeamManager.Services
 
             decimal totalCollections = context.Payments
                 .Where(p => p.PaymentYear == year)
-                .Sum(p => (decimal?)p.Amount) ?? 0;
+                .AsEnumerable()
+                .Sum(p => p.Amount);
 
             decimal totalExpenses = context.Expenses
                 .Where(e => e.ExpenseYear == year)
-                .Sum(e => (decimal?)e.Amount) ?? 0;
+                .AsEnumerable()
+                .Sum(e => e.Amount);
 
             return new YearlySummary
             {
@@ -63,11 +65,13 @@ namespace BoxCricketTeamManager.Services
 
             var monthlyCollections = context.Payments
                 .Where(p => p.PaymentYear == year)
+                .AsEnumerable()
                 .GroupBy(p => p.PaymentMonth)
                 .ToDictionary(g => g.Key, g => g.Sum(p => p.Amount));
 
             var monthlyExpenses = context.Expenses
                 .Where(e => e.ExpenseYear == year)
+                .AsEnumerable()
                 .GroupBy(e => e.ExpenseMonth)
                 .ToDictionary(g => g.Key, g => g.Sum(e => e.Amount));
 

@@ -188,7 +188,8 @@ namespace BoxCricketTeamManager.Forms
 
                 decimal collected = context.Payments
                     .Where(p => p.PaymentMonth == currentMonth && p.PaymentYear == currentYear)
-                    .Sum(p => (decimal?)p.Amount) ?? 0;
+                    .AsEnumerable()
+                    .Sum(p => p.Amount);
 
                 var monthlyDue = context.MonthlyDues.FirstOrDefault(m => m.Year == currentYear);
                 decimal monthlyAmount = monthlyDue?.MonthlyAmount ?? 50;
@@ -199,7 +200,8 @@ namespace BoxCricketTeamManager.Forms
                 // Current month expenses
                 decimal expenses = context.Expenses
                     .Where(e => e.ExpenseMonth == currentMonth && e.ExpenseYear == currentYear)
-                    .Sum(e => (decimal?)e.Amount) ?? 0;
+                    .AsEnumerable()
+                    .Sum(e => e.Amount);
                 lblMonthlyExpensesValue.Text = $"₹{expenses:N0}";
 
                 // Calculate current balance
@@ -208,11 +210,13 @@ namespace BoxCricketTeamManager.Forms
 
                 decimal totalPayments = context.Payments
                     .Where(p => p.PaymentYear == currentYear)
-                    .Sum(p => (decimal?)p.Amount) ?? 0;
+                    .AsEnumerable()
+                    .Sum(p => p.Amount);
 
                 decimal totalExpenses = context.Expenses
                     .Where(e => e.ExpenseYear == currentYear)
-                    .Sum(e => (decimal?)e.Amount) ?? 0;
+                    .AsEnumerable()
+                    .Sum(e => e.Amount);
 
                 decimal currentBalance = openingBalance + totalPayments - totalExpenses;
                 lblCurrentBalanceValue.Text = $"₹{currentBalance:N0}";

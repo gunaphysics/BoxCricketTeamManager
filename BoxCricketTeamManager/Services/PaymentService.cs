@@ -99,7 +99,8 @@ namespace BoxCricketTeamManager.Services
             using var context = Program.CreateDbContext();
             return context.Payments
                 .Where(p => p.PaymentMonth == month && p.PaymentYear == year)
-                .Sum(p => (decimal?)p.Amount) ?? 0;
+                .AsEnumerable()
+                .Sum(p => p.Amount);
         }
 
         public decimal GetYearlyCollection(int year)
@@ -107,7 +108,8 @@ namespace BoxCricketTeamManager.Services
             using var context = Program.CreateDbContext();
             return context.Payments
                 .Where(p => p.PaymentYear == year)
-                .Sum(p => (decimal?)p.Amount) ?? 0;
+                .AsEnumerable()
+                .Sum(p => p.Amount);
         }
 
         public decimal GetMemberYearlyTotal(int memberId, int year)
@@ -115,7 +117,8 @@ namespace BoxCricketTeamManager.Services
             using var context = Program.CreateDbContext();
             return context.Payments
                 .Where(p => p.MemberId == memberId && p.PaymentYear == year)
-                .Sum(p => (decimal?)p.Amount) ?? 0;
+                .AsEnumerable()
+                .Sum(p => p.Amount);
         }
 
         public decimal GetMonthlyDueAmount(int year)
@@ -130,6 +133,7 @@ namespace BoxCricketTeamManager.Services
             using var context = Program.CreateDbContext();
             return context.Payments
                 .Where(p => p.PaymentYear == year)
+                .AsEnumerable()
                 .GroupBy(p => p.PaymentMonth)
                 .ToDictionary(g => g.Key, g => g.Sum(p => p.Amount));
         }

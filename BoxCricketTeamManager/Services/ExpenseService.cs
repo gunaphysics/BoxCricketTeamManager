@@ -80,7 +80,8 @@ namespace BoxCricketTeamManager.Services
             using var context = Program.CreateDbContext();
             return context.Expenses
                 .Where(e => e.ExpenseMonth == month && e.ExpenseYear == year)
-                .Sum(e => (decimal?)e.Amount) ?? 0;
+                .AsEnumerable()
+                .Sum(e => e.Amount);
         }
 
         public decimal GetYearlyExpenses(int year)
@@ -88,7 +89,8 @@ namespace BoxCricketTeamManager.Services
             using var context = Program.CreateDbContext();
             return context.Expenses
                 .Where(e => e.ExpenseYear == year)
-                .Sum(e => (decimal?)e.Amount) ?? 0;
+                .AsEnumerable()
+                .Sum(e => e.Amount);
         }
 
         public Dictionary<string, decimal> GetExpensesByCategory(int year)
@@ -97,6 +99,7 @@ namespace BoxCricketTeamManager.Services
             return context.Expenses
                 .Include(e => e.Category)
                 .Where(e => e.ExpenseYear == year)
+                .AsEnumerable()
                 .GroupBy(e => e.Category != null ? e.Category.CategoryName : "Uncategorized")
                 .ToDictionary(g => g.Key, g => g.Sum(e => e.Amount));
         }
@@ -106,6 +109,7 @@ namespace BoxCricketTeamManager.Services
             using var context = Program.CreateDbContext();
             return context.Expenses
                 .Where(e => e.ExpenseYear == year)
+                .AsEnumerable()
                 .GroupBy(e => e.ExpenseMonth)
                 .ToDictionary(g => g.Key, g => g.Sum(e => e.Amount));
         }
