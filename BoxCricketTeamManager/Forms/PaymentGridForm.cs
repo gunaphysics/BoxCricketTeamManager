@@ -164,9 +164,9 @@ namespace BoxCricketTeamManager.Forms
                 ColumnHeadersHeight = 35
             };
 
-            // Setup columns
-            dgvPayments.Columns.Add(new DataGridViewTextBoxColumn { Name = "MemberId", HeaderText = "ID", Width = 0, Visible = false });
-            dgvPayments.Columns.Add(new DataGridViewTextBoxColumn { Name = "IsActive", HeaderText = "Active", Width = 0, Visible = false });
+            // Setup columns - frozen columns must come first
+            dgvPayments.Columns.Add(new DataGridViewTextBoxColumn { Name = "MemberId", HeaderText = "ID", Width = 0, Visible = false, Frozen = true });
+            dgvPayments.Columns.Add(new DataGridViewTextBoxColumn { Name = "IsActive", HeaderText = "Active", Width = 0, Visible = false, Frozen = true });
             dgvPayments.Columns.Add(new DataGridViewTextBoxColumn { Name = "Name", HeaderText = "Member Name", Width = 180, Frozen = true });
 
             // Month columns
